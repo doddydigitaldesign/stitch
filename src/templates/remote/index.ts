@@ -1,7 +1,8 @@
 import { camelCase } from "../../utils/camelCase";
 import { writeFile } from "../../writeFile";
-import { createPublicHtmlFile } from "../html.template";
-import { createTypescriptConfig } from "../tsconfig.template";
+import { createPublicHtmlFile } from "../shared/html.template";
+import { createPackageJsonFile } from "../shared/package.template";
+import { createTypescriptConfig } from "../shared/tsconfig.template";
 import { createRemoteWebpackConfig } from "./webpack.template";
 
 export const createRemoteFiles = ({
@@ -13,20 +14,17 @@ export const createRemoteFiles = ({
   entry: string;
   url: string;
 }) => {
-  const remoteOutputPath = `./output/${name}`;
+  const outputPath = `./output/${name}`;
 
+  const packageFile = createPackageJsonFile({ name, port: new URL(url).port });
   const webpackConfig = createRemoteWebpackConfig({
     entry,
     name,
     url,
   });
-
   const typeScriptConfig = createTypescriptConfig();
-
   const publicHtml = createPublicHtmlFile({ name });
-
   const entryFile = `import('./bootstrap');`;
-
   const bootstrapFile = `
   import React from 'react';
   import ReactDOM from 'react-dom';
@@ -36,7 +34,6 @@ export const createRemoteFiles = ({
     name
   )}'} />, document.getElementById('root'));
   `;
-
   const componentFile = `
   import React from 'react';
 
@@ -55,15 +52,16 @@ export const createRemoteFiles = ({
   export default ${camelCase(name)};
   `;
 
-  writeFile(`${remoteOutputPath}/wehpack.config.js`, webpackConfig);
-  writeFile(`${remoteOutputPath}/tsconfig.json`, typeScriptConfig);
-  writeFile(`${remoteOutputPath}/src/index.ts`, entryFile);
-  writeFile(`${remoteOutputPath}/src/bootstrap.ts`, bootstrapFile);
+  writeFile(`${outputPath}/package.json`, packageFile);
+  writeFile(`${outputPath}/webpack.config.js`, webpackConfig);
+  writeFile(`${outputPath}/tsconfig.json`, typeScriptConfig);
+  writeFile(`${outputPath}/src/index.ts`, entryFile);
+  writeFile(`${outputPath}/src/bootstrap.ts`, bootstrapFile);
   writeFile(
-    `${remoteOutputPath}/src/components/${camelCase(name)}.tsx`,
+    `${outputPath}/src/components/${camelCase(name)}.tsx`,
     componentFile
   );
-  writeFile(`${remoteOutputPath}/public/index.html`, publicHtml);
+  writeFile(`${outputPath}/public/index.html`, publicHtml);
 
   return {
     bootstrapFile,

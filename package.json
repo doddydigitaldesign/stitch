@@ -6,8 +6,8 @@
   "scripts": {
     "rimraf": "npx rimraf ./output",
     "build": "npm run rimraf && tsc",
-    "dev": "npm run build && node ./build/index.js",
-    "dev:args": "npm run build && node ./build/index.js host shop@http://localhost:3001,account@http://localhost:3002",
+    "start": "npm run build && node ./build/index.js",
+    "example": "npm run build && node ./build/index.js host shop@http://localhost:3001,account@http://localhost:3002",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

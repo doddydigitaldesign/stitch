@@ -1,4 +1,4 @@
-import { camelCase } from "../utils/camelCase";
+import { camelCase } from "../../utils/camelCase";
 
 export const createPublicHtmlFile = (obj: {name: string;}) => `
 <!DOCTYPE html>

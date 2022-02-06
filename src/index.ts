@@ -4,7 +4,7 @@ import readline from "readline";
 import { writeFile } from "./writeFile";
 import { createRemoteWebpackConfig as createRemoteWebpackConfig } from "./templates/remote/webpack.template";
 import { camelCase } from "./utils/camelCase";
-import { createPublicHtmlFile } from "./templates/html.template";
+import { createPublicHtmlFile } from "./templates/shared/html.template";
 import { createRemoteFiles } from "./templates/remote";
 import { createHostFiles } from "./templates/host";
 
