@@ -1,16 +1,16 @@
 {
   "name": "stitch",
   "version": "0.1.0",
-  "description": "A tool for generating configuration files to use with  webpack module federation",
+  "description": "A tool for generating configuration files to use with Webpack Module Federation.",
   "main": "src/index.ts",
   "scripts": {
-    "rimraf": "npx rimraf ./output",
-    "build": "npm run rimraf && tsc",
+    "clean": "npx rimraf ./output && npx rimraf ./build",
+    "build": "npm run clean && tsc",
     "start": "npm run build && node ./build/index.js",
     "example": "npm run build && node ./build/index.js host shop@http://localhost:3001,account@http://localhost:3002",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "doddy@doddy.se",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^17.0.10",

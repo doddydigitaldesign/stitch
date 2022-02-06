@@ -1,12 +1,6 @@
-import { getArgsFromInput } from "./input/getArgsFromInput";
-import { createHostWebpackConfig } from "./templates/host/host.template";
 import readline from "readline";
-import { writeFile } from "./writeFile";
-import { createRemoteWebpackConfig as createRemoteWebpackConfig } from "./templates/remote/webpack.template";
-import { camelCase } from "./utils/camelCase";
-import { createPublicHtmlFile } from "./templates/shared/html.template";
-import { createRemoteFiles } from "./templates/remote";
 import { createHostFiles } from "./templates/host";
+import { createRemoteFiles } from "./templates/remote";
 
 function main() {
   let name = "";
@@ -65,7 +59,7 @@ function main() {
       name,
       remotes,
     });
-    
+
     const remotesArray = remotes.split(",");
     for (let i = 0; i < remotesArray.length; i++) {
       const remoteEntry = remotesArray[i];
